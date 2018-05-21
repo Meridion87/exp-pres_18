@@ -21,7 +21,8 @@ class Course
     return cursos
   end
 
-  def cursosAntesFecha(arr_curso, fecha = Date.today)
+  def cursosAntesFecha(arr_curso, fecha = Date.today.to_s)
+    raise ArgumentError.new('Fecha no permitida') if fecha == '2018-01-01'
     list_cursos = []
     arr_curso.each do |c|
       list_cursos << c.nombre if c.fecha_inicio < Date.parse(fecha)
@@ -44,7 +45,8 @@ class Course
     puts respuesta
   end
 
-  def cursosPosteriorFecha(arr_curso, fecha = Date.today)
+  def cursosPosteriorFecha(arr_curso, fecha = Date.today.to_s)
+    raise ArgumentError.new('Fecha no permitida') if fecha == '2018-01-01'
     list_cursos = []
     arr_curso.each do |c|
       list_cursos << c.nombre if c.fecha_termino > Date.parse(fecha)
@@ -72,7 +74,7 @@ end
 
 curso = Course.new('abc', '2000-01-01', '2001-12-31')
 arr_cursos = curso.creaCursos
-curso.cursosAntesFecha(arr_cursos, '2019-01-01')
+curso.cursosAntesFecha(arr_cursos, '2016-01-01')
 curso.cursosPosteriorFecha(arr_cursos, '2016-01-01')
 
 
